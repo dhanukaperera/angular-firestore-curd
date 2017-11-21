@@ -10,6 +10,7 @@ export class ItemService {
 
   itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
+  itemDoc: AngularFirestoreDocument<Item>;
 
   constructor(public afs: AngularFirestore) {
     this.itemsCollection = this.afs.collection('items', ref => ref.orderBy('title', 'asc'));
@@ -29,6 +30,16 @@ export class ItemService {
 
   addItem(item: Item) {
     this.itemsCollection.add(item);
+  }
+
+  deleteItem(item: Item) {
+    this.itemDoc =  this.afs.doc(`items/${item.id}`);
+    this.itemDoc.delete();
+  }
+
+  updateItem(item: Item) {
+    this.itemDoc =  this.afs.doc(`items/${item.id}`);
+    this.itemDoc.update(item);
   }
 
 }
