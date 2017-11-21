@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { ItemsComponent } from './components/items/items.component';
 
 import { ItemService } from './services/item.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemsComponent
+    ItemsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
