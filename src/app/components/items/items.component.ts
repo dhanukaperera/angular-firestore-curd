@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-
-import { Observable } from 'rxjs/Observable';
-
+import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/items.interface';
 
 @Component({
@@ -10,20 +7,19 @@ import { Item } from '../../models/items.interface';
   templateUrl: './items.component.html',
   styleUrls: ['./items.component.css']
 })
+
 export class ItemsComponent implements OnInit {
 
-  itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<Item[]>;
+  items: Item[];
 
-  constructor(public afs: AngularFirestore) {
-    this.items = this.afs.collection('items').valueChanges();
-  }
+
+  constructor(private itemService: ItemService) {}
 
   ngOnInit() {
-  }
-
-  getItems() {
-    return this.items;
+    this.itemService.getItems().subscribe(items => {
+      console.log(items);
+      this.items = items;
+    })
   }
 
 }
